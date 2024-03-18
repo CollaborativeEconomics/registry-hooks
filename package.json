@@ -1,0 +1,16 @@
+{
+  "name": "registry-hooks",
+  "version": "0.0.1",
+  "description": "Registry events can trigger web3 actions, such as adding metadata to an NFT, or creating story certificates",
+  "main": "index.js",
+  "repository": "https://github.com/CollaborativeEconomics/registry-hooks",
+  "author": "Julian Kingman",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.2"
+  }
+}
