@@ -21,7 +21,7 @@ async function executeHookActions(actionsList: ActionDefinition[], currentContex
   // Recursively execute the next action in the list
   return executeHookActions(actionsList, {
     ...currentContext,
-    [currentAction.action]: newData,
+    [currentAction.key]: newData,
   }, index + 1);
 }
 
@@ -31,7 +31,7 @@ const runHook = async (triggerName: TriggerName, orgId: string, inputContext: Co
     console.log(`No hook found for org ${orgId} and trigger ${triggerName}`);
     return inputContext;
   }
-  return await executeHookActions(hook.actions, { input: { parameters: inputContext } });
+  return await executeHookActions(hook.actions, { input: inputContext });
 }
 
 export default runHook;

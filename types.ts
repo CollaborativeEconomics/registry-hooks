@@ -30,10 +30,7 @@ export interface ActionDefinition {
 }
 
 // Action context stores data as it passes through the hook
-interface OriginalContext {
-  input: ContextParams;
-}
-export type ActionContext = OriginalContext | Record<string, any>; // TODO: enumerate output types
+export type ActionContext = Record<string, any>; // TODO: enumerate output types
 
 export type ActionFunction<T extends ContextParams> = (
   context: ActionContext,

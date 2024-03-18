@@ -18,7 +18,6 @@ export default async function fetchDataFromApi(context: ActionContext, parameter
   // Use the registry Api key in the request headers
   const headers = {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${getRegistryApiKey()}`,
     ...(parameters.headers as Record<string, string>)
   };
 
