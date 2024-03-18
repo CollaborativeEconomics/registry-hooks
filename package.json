@@ -5,7 +5,6 @@
   "main": "index.js",
   "repository": "https://github.com/CollaborativeEconomics/registry-hooks",
   "author": "Julian Kingman",
-  "license": "MIT",
   "scripts": {
     "test": "bun test",
     "build": "tsc"
