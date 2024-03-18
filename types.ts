@@ -1,10 +1,10 @@
-import { FetchDataFromAPIParameters } from "./actions/fetchDataFromAPI";
+import { FetchDataFromApiParameters } from "./actions/fetchDataFromApi";
 import { MathParameters } from "./actions/math";
 import { TransformParameters } from "./actions/transform";
 
 // Action types and trigger types
 export const ActionTypes = {
-  fetchDataFromAPI: "fetchDataFromAPI",
+  fetchDataFromApi: "fetchDataFromApi",
   transform: "transform",
   math: "math",
 } as const;
@@ -17,22 +17,23 @@ export type ActionName = (typeof ActionTypes)[keyof typeof ActionTypes];
 export type TriggerName = (typeof TriggerTypes)[keyof typeof TriggerTypes];
 
 // Parameter and action definitions
-export type ContextParams = FetchDataFromAPIParameters | MathParameters | TransformParameters
+export type ContextParams = FetchDataFromApiParameters | MathParameters | TransformParameters
 
 export interface ActionDefinition {
   parameters: ContextParams;
   key: string; // unique identifier for the action
   action: ActionName;
   // These are optional because the initial context doesn't have them
+  output?: any;
   description?: string;
   allowedNextActions?: ActionName[];
 }
 
 // Action context stores data as it passes through the hook
 interface OriginalContext {
-  input: { parameters: ContextParams };
+  input: ContextParams;
 }
-export type ActionContext = OriginalContext | Record<string, ActionDefinition>;
+export type ActionContext = OriginalContext | Record<string, any>; // TODO: enumerate output types
 
 export type ActionFunction<T extends ContextParams> = (
   context: ActionContext,

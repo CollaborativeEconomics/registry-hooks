@@ -1,4 +1,4 @@
 import actions from "./actions";
-import setHook from "./setHook";
+import runHook from "./runHook";
 
-export { actions, setHook }
+export { actions, runHook }

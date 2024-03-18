@@ -12,13 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const init_1 = require("./init");
 // fetchDataFromRegistry.ts
 const fetchDataFromRegistry = (endpoint_1, ...args_1) => __awaiter(void 0, [endpoint_1, ...args_1], void 0, function* (endpoint, params = {}) {
-    const apiKey = (0, init_1.getRegistryApiKey)();
+    const ApiKey = (0, init_1.getRegistryApiKey)();
     const url = new URL(`${(0, init_1.getRegistryBaseUrl)()}${endpoint}`);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     const response = yield fetch(url.toString(), {
         method: 'GET', // or 'POST', etc., as needed
         headers: {
-            'Authorization': `Bearer ${apiKey}`,
+            'Authorization': `Bearer ${ApiKey}`,
             'Content-Type': 'application/json',
         },
     });

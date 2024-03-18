@@ -25,12 +25,13 @@ async function executeHookActions(actionsList: ActionDefinition[], currentContex
   }, index + 1);
 }
 
-const setHook = async (trigger: TriggerName, orgId: string, inputContext: ContextParams): Promise<ActionContext> => {
-  const hook: Hook = await fetchDataFromRegistry('/hook', { trigger, orgId });
+const runHook = async (triggerName: TriggerName, orgId: string, inputContext: ContextParams): Promise<ActionContext> => {
+  const hook: Hook = await fetchDataFromRegistry('/hook', { triggerName, orgId });
   if (!hook) {
-    throw new Error(`No hook found for trigger ${trigger}`);
+    console.log(`No hook found for org ${orgId} and trigger ${triggerName}`);
+    return inputContext;
   }
   return await executeHookActions(hook.actions, { input: { parameters: inputContext } });
 }
 
-export default setHook;
+export default runHook;

@@ -32,11 +32,11 @@ function executeHookActions(actionsList_1, currentContext_1) {
         return executeHookActions(actionsList, Object.assign(Object.assign({}, currentContext), { [currentAction.action]: newData }), index + 1);
     });
 }
-const setHook = (trigger, orgId, inputContext) => __awaiter(void 0, void 0, void 0, function* () {
+const runHook = (trigger, orgId, inputContext) => __awaiter(void 0, void 0, void 0, function* () {
     const hook = yield (0, fetchDataFromRegistry_1.default)('/hook', { trigger, orgId });
     if (!hook) {
         throw new Error(`No hook found for trigger ${trigger}`);
     }
     return yield executeHookActions(hook.actions, { input: { parameters: inputContext } });
 });
-exports.default = setHook;
+exports.default = runHook;

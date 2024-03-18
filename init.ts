@@ -1,5 +1,5 @@
 let registryApiKey = "";
-let registryBaseUrl = "https://registry.cfce.io/api";
+let registryBaseUrl = "https://registry.cfce.io/Api";
 
 export function getRegistryApiKey() {
   return registryApiKey;

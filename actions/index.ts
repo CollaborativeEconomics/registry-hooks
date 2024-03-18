@@ -1,16 +1,16 @@
 import { ActionFunction } from "../types";
-import fetchDataFromAPI, { FetchDataFromAPIParameters } from "./fetchDataFromAPI";
+import fetchDataFromApi, { FetchDataFromApiParameters } from "./fetchDataFromApi";
 import math, { MathParameters } from "./math";
 import transform, { TransformParameters } from "./transform";
 
 type Actions = {
-  fetchDataFromAPI: ActionFunction<FetchDataFromAPIParameters>,
+  fetchDataFromApi: ActionFunction<FetchDataFromApiParameters>,
   math: ActionFunction<MathParameters>,
   transform: ActionFunction<TransformParameters>,
 };
 
 const actions: Actions = {
-  fetchDataFromAPI,
+  fetchDataFromApi,
   math,
   transform: transform,
 }

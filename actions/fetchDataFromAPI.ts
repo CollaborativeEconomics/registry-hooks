@@ -3,19 +3,19 @@ import { get } from "lodash";
 import { getRegistryApiKey } from "../init";
 import { ActionContext, ActionDefinition, ContextParams } from "../types";
 
-export interface FetchDataFromAPIParameters {
+export interface FetchDataFromApiParameters {
   endpoint: string;
   method: string;
   body: Record<string, any>;
   headers: Record<string, string>;
 }
 
-export default async function fetchDataFromAPI(context: ActionContext, parameters: FetchDataFromAPIParameters): Promise<any> {
+export default async function fetchDataFromApi(context: ActionContext, parameters: FetchDataFromApiParameters): Promise<any> {
   const endpoint = updateEnpointWithContext(parameters.endpoint as string, context);
   const method = parameters.method as string;
   const body = parameters.body ? JSON.stringify(parameters.body) : null;
 
-  // Use the registry API key in the request headers
+  // Use the registry Api key in the request headers
   const headers = {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${getRegistryApiKey()}`,
