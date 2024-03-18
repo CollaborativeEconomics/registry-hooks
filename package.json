@@ -1,5 +1,5 @@
 {
-  "name": "registry-hooks",
+  "name": "@cfce/registry-hooks",
   "version": "0.0.1",
   "description": "Registry events can trigger web3 actions, such as adding metadata to an NFT, or creating story certificates",
   "main": "index.js",
@@ -7,10 +7,16 @@
   "author": "Julian Kingman",
   "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "bun test",
     "build": "tsc"
   },
   "devDependencies": {
+    "@types/bun": "^1.0.8",
+    "@types/lodash": "^4.17.0",
     "typescript": "^5.4.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "react-query": "^3.39.3"
   }
 }
