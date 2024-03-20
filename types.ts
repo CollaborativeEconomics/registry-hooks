@@ -9,12 +9,13 @@ export const ActionTypes = {
   math: "math",
 } as const;
 
-export const TriggerTypes = {
+export const Triggers = {
   addMetadataToNFT: "addMetadataToNFT",
+  onceDaily: "onceDaily",
 } as const;
 
 export type ActionName = (typeof ActionTypes)[keyof typeof ActionTypes];
-export type TriggerName = (typeof TriggerTypes)[keyof typeof TriggerTypes];
+export type TriggerName = (typeof Triggers)[keyof typeof Triggers];
 
 // Parameter and action definitions
 export type ContextParams = FetchDataFromApiParameters | MathParameters | TransformParameters

@@ -20,7 +20,7 @@ const handlers = [
 ];
 const server = (0, node_1.setupServer)(...handlers);
 const mockHook = {
-    trigger: types_1.TriggerTypes.addMetadataToNFT,
+    trigger: types_1.Triggers.addMetadataToNFT,
     actions: [
         {
             action: types_1.ActionTypes.fetchDataFromApi,

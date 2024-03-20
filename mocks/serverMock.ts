@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw'
 import { setupServer } from 'msw/node'
 import { getRegistryBaseUrl } from '../init';
-import { ActionTypes, TriggerTypes } from '../types';
+import { ActionTypes, Triggers } from '../types';
 
 const handlers = [
   // Intercept the "GET /resource" request.
@@ -21,7 +21,7 @@ const handlers = [
 const server = setupServer(...handlers);
 
 const mockHook = {
-  trigger: TriggerTypes.addMetadataToNFT,
+  trigger: Triggers.addMetadataToNFT,
   actions: [
     {
       action: ActionTypes.fetchDataFromApi,

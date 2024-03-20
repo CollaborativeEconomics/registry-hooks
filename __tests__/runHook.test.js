@@ -27,7 +27,7 @@ const types_1 = require("../types");
         serverMock_1.default.close();
     });
     (0, bun_test_1.test)("should execute a hook", () => __awaiter(void 0, void 0, void 0, function* () {
-        const metadata = yield (0, runHook_1.default)(types_1.TriggerTypes.addMetadataToNFT, "org_123", { userId: '1234', walletAddress: '0xABCD' });
+        const metadata = yield (0, runHook_1.default)(types_1.Triggers.addMetadataToNFT, "org_123", { userId: '1234', walletAddress: '0xABCD' });
         (0, bun_test_1.expect)(metadata.output).toMatchObject({ tonsCO2: 123000, walletAddress: '0xABCD' });
     }));
 });
