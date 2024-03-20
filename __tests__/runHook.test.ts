@@ -18,7 +18,7 @@ describe("runHook", () => {
   });
 
   test("should execute a hook", async () => {
-    const metadata = await runHook(Triggers.addMetadataToNFT, "org_123", { userId: '1234', walletAddress: '0xABCD' });
+    const metadata = await runHook(Triggers.addMetadataToNFTReceipt, "org_123", { userId: '1234', walletAddress: '0xABCD', walletAddressChain: "ETH" });
     expect(metadata.output).toMatchObject({ tonsCO2: 123000, walletAddress: '0xABCD' });
   });
 });

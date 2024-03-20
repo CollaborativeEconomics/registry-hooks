@@ -1,6 +1,6 @@
+import server from "../../mocks/serverMock";
 import { expect, test, describe, beforeAll, afterEach, afterAll } from "bun:test";
 import { getRegistryBaseUrl } from "../../init";
-import server from "../../mocks/serverMock";
 
 
 describe("fetchDataFromApi", async () => {

@@ -10,7 +10,7 @@ export const ActionTypes = {
 } as const;
 
 export const Triggers = {
-  addMetadataToNFT: "addMetadataToNFT",
+  addMetadataToNFTReceipt: "addMetadataToNFTReceipt",
   onceDaily: "onceDaily",
 } as const;
 

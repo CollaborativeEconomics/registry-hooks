@@ -4,10 +4,7 @@ import { getRegistryBaseUrl } from '../init';
 import { ActionTypes, Triggers } from '../types';
 
 const handlers = [
-  // Intercept the "GET /resource" request.
   http.get(`${getRegistryBaseUrl()}/test`, () => {
-    // And respond with a "text/plain" response
-    // with a "Hello world!" text response body.
     return HttpResponse.json({ message: "Hello test!" })
   }),
   http.get(`${getRegistryBaseUrl()}/hook`, () => {
@@ -21,7 +18,7 @@ const handlers = [
 const server = setupServer(...handlers);
 
 const mockHook = {
-  trigger: Triggers.addMetadataToNFT,
+  trigger: Triggers.addMetadataToNFTReceipt,
   actions: [
     {
       action: ActionTypes.fetchDataFromApi,

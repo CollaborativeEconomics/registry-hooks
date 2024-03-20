@@ -8,5 +8,6 @@ exports.ActionTypes = {
     math: "math",
 };
 exports.Triggers = {
-    addMetadataToNFT: "addMetadataToNFT",
+    addMetadataToNFTReceipt: "addMetadataToNFTReceipt",
+    onceDaily: "onceDaily",
 };

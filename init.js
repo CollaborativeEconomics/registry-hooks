@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getRegistryBaseUrl = exports.getRegistryApiKey = void 0;
 let registryApiKey = "";
-let registryBaseUrl = "https://registry.cfce.io/Api";
+let registryBaseUrl = "https://registry.cfce.io/api";
 function getRegistryApiKey() {
     return registryApiKey;
 }
