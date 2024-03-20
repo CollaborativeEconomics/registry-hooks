@@ -1,8 +1,8 @@
 import { expect, test, describe, beforeAll, afterEach, afterAll } from "bun:test";
 
-import runHook from "../runHook";
-import server from "../mocks/serverMock";
-import { Triggers } from "../types";
+import runHook from "../src/runHook";
+import server from "../src/mocks/serverMock";
+import { Triggers } from "../src/types";
 
 describe("runHook", () => {
   beforeAll(() => {

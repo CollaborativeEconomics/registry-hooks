@@ -1,7 +1,6 @@
 import { get } from "lodash";
 
-import { getRegistryApiKey } from "../init";
-import { ActionContext, ActionDefinition, ContextParams } from "../types";
+import { ActionContext } from "../types";
 
 export interface FetchDataFromApiParameters {
   endpoint: string;
