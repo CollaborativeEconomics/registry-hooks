@@ -9,26 +9,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Install Bun
+        run: curl -fsSL https://bun.sh/install | bash
       - uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      # Use Yarn for dependency installation and testing
-      - run: yarn install
-      - run: yarn test
+      # Use Bun for dependency installation and testing
+      - run: bun install
+      - run: bun test
 
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Install Bun
+        run: curl -fsSL https://bun.sh/install | bash
       - uses: actions/setup-node@v3
         with:
           node-version: 18
           registry-url: https://registry.npmjs.org/
           
-      # Use Yarn for installing dependencies and publishing
-      - run: yarn install --non-interactive
-      - run: yarn publish
+      # Use Bun for installing dependencies and publishing
+      - run: bun install
+      - run: bun publish --non-interactive
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
