@@ -1,8 +1,8 @@
 import { expect, test, describe } from "bun:test";
 
-import runHook from "../src/runHook";
-import server from "../mocks/serverMock";
-import { Triggers } from "../src/types";
+import runHook from "../runHook";
+import server from "../../mocks/serverMock";
+import { Triggers } from "../types";
 
 describe("runHook", () => {
   test("should execute a hook", async () => {
