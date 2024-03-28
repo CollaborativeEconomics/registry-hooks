@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw'
 import { setupServer } from 'msw/node'
-import { getRegistryBaseUrl } from '../init';
-import { ActionTypes, Triggers } from '../types';
+import { getRegistryBaseUrl } from '../src/init';
+import { ActionTypes, Triggers } from '../src/types';
 
 const handlers = [
   http.get(`${getRegistryBaseUrl()}/test`, () => {
@@ -37,8 +37,8 @@ const mockHook = {
       description: "Convert lbs CO2 into tons CO2",
       parameters: {
         operation: "multiply",
-        input: "lbsCO2EstimateData.lbsCO2",
-        value: 1000,
+        inputA: "lbsCO2EstimateData.lbsCO2",
+        inputB: 1000,
       },
     },
     {
