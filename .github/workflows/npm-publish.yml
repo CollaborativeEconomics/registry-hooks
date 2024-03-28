@@ -35,8 +35,8 @@ jobs:
           node-version: 18
           registry-url: https://registry.npmjs.org/
           
-      # Use Bun for installing dependencies and publishing
+      # Use Bun for installing dependencies and npm publishing
       - run: bun install
-      - run: bun publish --non-interactive
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
