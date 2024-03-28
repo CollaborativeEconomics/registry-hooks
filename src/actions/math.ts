@@ -22,18 +22,18 @@ export default async function (context: ActionContext, parameters: MathParameter
     typeof inputA !== "number"
     || typeof inputB !== "number"
   ) {
-    throw new Error(`Invalid input type for math action: ${typeof numberInput}`);
+    throw new Error(`Invalid input type for math action: ${typeof inputA}`);
   }
   switch (operation) {
     case "multiply":
-      return numberInput * value;
+      return inputA * inputB;
     case "divide":
-      return numberInput / value;
+      return inputA / inputB;
     case "add":
-      return numberInput + value;
+      return inputA + inputB;
     case "subtract":
-      return numberInput - value;
+      return inputA - inputB;
     default:
-      return numberInput;
+      return inputA;
   }
 }

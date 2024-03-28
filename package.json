@@ -6,7 +6,7 @@
   "repository": "https://github.com/CollaborativeEconomics/registry-hooks",
   "author": "Julian Kingman",
   "scripts": {
-    "test": "bun test",
+    "test": "bun test --preload ./__tests__/testSetup.ts",
     "build": "tsc"
   },
   "devDependencies": {
