@@ -8,6 +8,7 @@ export const ActionTypes = {
   fetchDataFromApi: "fetchDataFromApi",
   transform: "transform",
   math: "math",
+  createStory: 'createStory',
 } as const;
 
 export const Triggers = {
