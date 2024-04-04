@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'bun:test'
+import { describe, it, expect, afterEach } from 'bun:test'
 import init, { getRegistryApiKey, getRegistryBaseUrl } from '../init';
 
 describe('init', () => {
@@ -16,6 +16,6 @@ describe('init', () => {
     init({ registryApiKey: 'anotherKey' });
 
     expect(getRegistryApiKey()).toBe('anotherKey');
-    expect(getRegistryBaseUrl()).toBe('testUrl');
+    expect(getRegistryBaseUrl()).toBe('https://registry.cfce.io/api');
   });
 });
