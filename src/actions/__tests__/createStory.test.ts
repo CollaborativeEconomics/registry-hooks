@@ -33,9 +33,10 @@ describe("createStory", async () => {
     }
     const storyWithPath = {
       ...story,
-      metadata: "input.metadata"
+      metadata: "input.metadata",
+      name: "input.shouldJustShowString",
     }
     const result = await createStory(context, storyWithPath);
-    expect(result).toEqual(expect.objectContaining({ metadata }))
+    expect(result).toEqual(expect.objectContaining({ metadata, name: "input.shouldJustShowString"}))
   })
 })
