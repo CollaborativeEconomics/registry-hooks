@@ -1,0 +1,76 @@
+import { get } from 'lodash';
+
+import { getRegistryApiKey, getRegistryBaseUrl } from "../init";
+import { ActionContext } from "../types";
+
+export interface Story {
+  id?: string
+  created: string
+  name: string
+  description: string
+  image: string
+  organizationId: string
+  initiativeId: string
+  amount?: number
+  tokenId?: string
+  metadata?: string
+}
+
+export interface CreateStoryParameters {
+  organizationId: string;
+  initiativeId: string;
+  name: string;
+  description: string;
+  image: string;
+  amount?: number; // how many tokens to mint in set, default = 0
+  metadata?: string;
+  files?: {
+    files: File[];
+  }
+}
+
+const createStory = async (context: ActionContext, params: CreateStoryParameters) => {
+  const ApiKey = getRegistryApiKey();
+  const url = new URL(`${getRegistryBaseUrl()}/stories`);
+  const { organizationId, initiativeId, name, description, image, amount, metadata, files } = params;
+  const { files: filesList } = files || { files: [] };
+  const formData = new FormData();
+
+  const appendToFormData = (key: string, pathOrValue: string) => {
+    const contextValueOrValue = get(context, pathOrValue, pathOrValue);
+    formData.set(key, contextValueOrValue);
+  };
+
+  appendToFormData('organizationId', organizationId);
+  appendToFormData('initiativeId', initiativeId);
+  appendToFormData('name', name);
+  appendToFormData('description', description);
+  appendToFormData('image', image);
+
+  if (amount) {
+    appendToFormData('amount', amount.toString());
+  }
+  if (metadata) {
+    appendToFormData('metadata', metadata);
+  }
+  filesList.forEach((file) => {
+    formData.append('files', file);
+  });
+
+  console.log(`fetching ${url} with ${formData}`)
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${ApiKey}`,
+    },
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to create story');
+  }
+
+  return response.json();
+};
+
+export default createStory;
