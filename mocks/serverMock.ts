@@ -8,7 +8,7 @@ const handlers = [
   http.get(`${getRegistryBaseUrl()}/test`, () => {
     return HttpResponse.json({ message: "Hello test!" })
   }),
-  http.get(`${getRegistryBaseUrl()}/hook`, () => {
+  http.get(`${getRegistryBaseUrl()}/hooks`, () => {
     return HttpResponse.json(mockHook);
   }),
   http.post(`${getRegistryBaseUrl()}/stories`, async ({ request }) => {
