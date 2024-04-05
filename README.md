@@ -7,7 +7,7 @@
 Initialize registry hooks using a registry API key
 
 ```jsx
-import { init } from '@cfce/registry';
+import { init } from '@cfce/registry-hooks';
 
 init({
   registryApiKey: process.env.CFCE_REGISTRY_API_KEY,

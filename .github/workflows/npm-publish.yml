@@ -37,6 +37,8 @@ jobs:
           
       # Use Bun for installing dependencies and npm publishing
       - run: bun install
+      - name: Compile TypeScript
+        run: npx tsc
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
