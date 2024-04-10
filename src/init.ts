@@ -1,5 +1,6 @@
 let registryApiKey = "";
-let registryBaseUrl = "https://registry.cfce.io/api";
+// let registryBaseUrl = "https://registry.cfce.io/api";
+let registryBaseUrl = "http://localhost:3000/api";
 
 export function getRegistryApiKey() {
   return registryApiKey;
