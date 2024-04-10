@@ -63,7 +63,7 @@ const mockHook = {
         action: ActionTypes.transform,
         parameters: {
             inputA: "input.amountUSD",
-            input_b: "carbonCreditQuote.total_cost",
+            inputB: "carbonCreditQuote.total_cost",
             operation: "multiply"
         },
         description: "Convert lbs CO2 into tons CO2"
