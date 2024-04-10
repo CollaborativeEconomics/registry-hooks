@@ -60,7 +60,7 @@ const mockHook = {
     {
       actionDefinition: {
         key: "tonsCO2",
-        action: ActionTypes.transform,
+        action: ActionTypes.math,
         parameters: {
             inputA: "input.amountUSD",
             inputB: "carbonCreditQuote.total_cost",
@@ -72,7 +72,7 @@ const mockHook = {
     {
       actionDefinition: {
         key: "output",
-        action: ActionTypes.math,
+        action: ActionTypes.transform,
         parameters: {
             tonsCO2: "tonsCO2",
             inputDonor: "walletAddress"
