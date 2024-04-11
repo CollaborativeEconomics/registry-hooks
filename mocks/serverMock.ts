@@ -52,32 +52,32 @@ const mockHook = {
               body: null,
               method: "GET",
               headers: null,
-              endpoint: "https://api-beta.stellarcarbon.io/carbon-quote?carbon_amount=1"
+              endpoint: "https://stellarcarbon.com/api/v1/byUser/{input.userId}"
           },
           description: "Get the lbs CO2 estimate"
       }
     },
     {
       actionDefinition: {
-        key: "tonsCO2",
-        action: ActionTypes.math,
+        key: "output",
+        action: ActionTypes.transform,
         parameters: {
-            inputA: "input.amountUSD",
-            inputB: "carbonCreditQuote.total_cost",
-            operation: "multiply"
+            'tonsCO2': "tonsCO2",
+            'input.walletAddress': "walletAddress",
         },
-        description: "Convert lbs CO2 into tons CO2"
+        description: "Set the NFT metadata"
     }
     },
     {
       actionDefinition: {
-        key: "output",
-        action: ActionTypes.transform,
+        key: "tonsCO2",
+        action: ActionTypes.math,
         parameters: {
-            tonsCO2: "tonsCO2",
-            inputDonor: "walletAddress"
+          inputA: 20,
+          inputB: 1000,
+            operation: "multiply"
         },
-        description: "Set the NFT metadata"
+        description: "Convert lbs CO2 into tons CO2"
     }
     }
   ],
