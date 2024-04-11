@@ -34,7 +34,7 @@ const handlers = [
 
     return HttpResponse.json(story);
   }),
-  http.get(`https://stellarcarbon.com/api/v1/byUser/1234`, () => {
+  http.get(`https://api-beta.stellarcarbon.io/carbon-quote?carbon_amount=1`, () => {
     return HttpResponse.json({
       "carbon_amount": "1",
       "total_cost": "20",
@@ -56,7 +56,7 @@ const mockHook = {
               body: null,
               method: "GET",
               headers: null,
-              endpoint: "https://stellarcarbon.com/api/v1/byUser/{input.userId}"
+              endpoint: "https://api-beta.stellarcarbon.io/carbon-quote?carbon_amount=1"
           },
           description: "Get the lbs CO2 estimate"
       }
