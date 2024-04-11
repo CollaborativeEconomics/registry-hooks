@@ -9,14 +9,15 @@ async function executeHookActions(actionsList: ActionDefinition[], currentContex
   }
 
   const currentAction = actionsList[index];
-  const actionFn = actions[currentAction.action];
+  const actionFn = actions[currentAction.actionDefinition.action];
+  console.log(currentAction);
   if (!actionFn) {
-    throw new Error(`Action ${currentAction.action} not found.`);
+    throw new Error(`Action ${currentAction.actionDefinition.action} not found.`);
   }
 
   // Execute the current action
   // @ts-expect-error TS expands parameters from union type to intersection type
-  const newData = await actionFn(currentContext, currentAction.parameters);
+  const newData = await actionFn(currentContext, currentAction.actionDefinition.parameters);
 
   // Recursively execute the next action in the list
   return executeHookActions(actionsList, {

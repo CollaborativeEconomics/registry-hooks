@@ -45,34 +45,40 @@ const mockHook = {
   trigger: Triggers.addMetadataToNFTReceipt,
   actions: [
     {
-      action: ActionTypes.fetchDataFromApi,
-      key: "lbsCO2EstimateData",
-      description: "Get the lbs CO2 estimate",
-      parameters: {
-        endpoint: "https://stellarcarbon.com/api/v1/byUser/{input.userId}",
-        method: "GET", // Example method
-        body: undefined, // Example body
-        headers: undefined, // Example headers
-      },
+      actionDefinition: {
+          key: "carbonCreditQuote",
+          action: ActionTypes.fetchDataFromApi,
+          parameters: {
+              body: null,
+              method: "GET",
+              headers: null,
+              endpoint: "https://api-beta.stellarcarbon.io/carbon-quote?carbon_amount=1"
+          },
+          description: "Get the lbs CO2 estimate"
+      }
     },
     {
-      action: ActionTypes.math,
-      key: "tonsCO2",
-      description: "Convert lbs CO2 into tons CO2",
-      parameters: {
-        operation: "multiply",
-        inputA: "lbsCO2EstimateData.lbsCO2",
-        inputB: 1000,
-      },
+      actionDefinition: {
+        key: "tonsCO2",
+        action: ActionTypes.math,
+        parameters: {
+            inputA: "input.amountUSD",
+            inputB: "carbonCreditQuote.total_cost",
+            operation: "multiply"
+        },
+        description: "Convert lbs CO2 into tons CO2"
+    }
     },
     {
-      action: ActionTypes.transform,
-      key: "output",
-      description: "Set the NFT metadata",
-      parameters: {
-        'tonsCO2': "tonsCO2",
-        'input.walletAddress': "walletAddress",
-      },
+      actionDefinition: {
+        key: "output",
+        action: ActionTypes.transform,
+        parameters: {
+            tonsCO2: "tonsCO2",
+            inputDonor: "walletAddress"
+        },
+        description: "Set the NFT metadata"
+    }
     }
   ],
 }
