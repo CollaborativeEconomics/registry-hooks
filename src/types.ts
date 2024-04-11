@@ -25,11 +25,17 @@ export type ContextParams = FetchDataFromApiParameters | MathParameters | Transf
 export interface ActionDefinition {
   parameters: ContextParams;
   key: string; // unique identifier for the action
-  action: ActionName;
+  actionDefinition: ActionDefinitions;
   // These are optional because the initial context doesn't have them
   output?: any;
   description?: string;
   allowedNextActions?: ActionName[];
+}
+
+export interface ActionDefinitions {
+  key: string;
+  action: ActionName;
+  description: string;
 }
 
 // Action context stores data as it passes through the hook
