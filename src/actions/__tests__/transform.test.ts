@@ -1,5 +1,5 @@
 import { expect, test, describe, beforeAll, afterEach, afterAll } from "bun:test";
-import transform from "../transform";
+import transform, { transformEach } from "../transform";
 
 describe("transform action", async () => {
   test("transforms an object", async () => {
@@ -16,5 +16,32 @@ describe("transform action", async () => {
         'input.c': 'output.c',
       })
     expect(result).toEqual({ output: { a: 1, b: 2, c: 3 } });
+  })
+})
+
+describe("transformEach action", async () => {
+  test("transforms an array of objects", async () => {
+    const context = {
+      input: [
+        { a: 1, b: 2, c: 3 },
+        { a: 4, b: 5, c: 6 },
+        { a: 7, b: 8, c: 9 }
+      ]
+    };
+    const result = await transformEach(
+      context,
+      {
+        collectionPath: 'input',
+        transformParameter: {
+          'a': 'output.a',
+          'b': 'output.b',
+          'c': 'output.c',
+        }
+      })
+    expect(result).toEqual([
+      { output: { a: 1, b: 2, c: 3 } },
+      { output: { a: 4, b: 5, c: 6 } },
+      { output: { a: 7, b: 8, c: 9 } }
+    ]);
   })
 })
