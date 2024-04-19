@@ -17,12 +17,12 @@ async function executeHookActions(actionsList: ActionDefinition[], currentContex
 
   // Execute the current action
   // @ts-expect-error TS expands parameters from union type to intersection type
-  const newData = await actionFn(currentContext, currentAction.parameters);
+  const nextContext = await actionFn(currentContext, currentAction.parameters);
 
   // Recursively execute the next action in the list
   return executeHookActions(actionsList, {
     ...currentContext,
-    [currentAction.key]: newData,
+    [currentAction.key]: nextContext,
   }, index + 1);
 }
 

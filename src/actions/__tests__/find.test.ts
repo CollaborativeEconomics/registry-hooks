@@ -15,6 +15,11 @@ const inputContext = {
   },
   c: [
     1, 2, 3
+  ],
+  d: [
+    { date: Date.now() },
+    { date: Date.now() + 100 },
+    { date: Date.now() - 100 }
   ]
 }
 
@@ -61,5 +66,10 @@ describe("find action", async () => {
   test("finds without key", async () => {
     const result = await find(inputContext, { collectionPath: 'c', operator: '===', value: 1 });
     expect(result).toEqual(inputContext.c[0]);
+  })
+  // test with date
+  test("finds with date", async () => {
+    const result = await find(inputContext, { collectionPath: 'd', operator: '>', value: Date.now(), key: 'date' });
+    expect(result).toEqual(inputContext.d[1]);
   })
 })
