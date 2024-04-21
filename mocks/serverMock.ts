@@ -34,8 +34,12 @@ const handlers = [
 
     return HttpResponse.json(story);
   }),
-  http.get(`https://stellarcarbon.com/api/v1/byUser/1234`, () => {
-    return HttpResponse.json({ lbsCO2: 123 });
+  http.get(`https://api-beta.stellarcarbon.io/carbon-quote?carbon_amount=1`, () => {
+    return HttpResponse.json({
+      "carbon_amount": "1",
+      "total_cost": "20",
+      "average_price": "20"
+    });
   })
 ];
 
@@ -62,9 +66,9 @@ const mockHook = {
         key: "tonsCO2",
         action: ActionTypes.math,
         parameters: {
-            inputA: "input.amountUSD",
-            inputB: "carbonCreditQuote.total_cost",
-            operation: "multiply"
+          inputA: 'input.amountUSD',
+          inputB: 'carbonCreditQuote.total_cost',
+          operation: 'divide'
         },
         description: "Convert lbs CO2 into tons CO2"
     }
@@ -74,8 +78,8 @@ const mockHook = {
         key: "output",
         action: ActionTypes.transform,
         parameters: {
-            tonsCO2: "tonsCO2",
-            inputDonor: "walletAddress"
+            'tonsCO2': "tonsCO2",
+            'input.walletAddress': "walletAddress",
         },
         description: "Set the NFT metadata"
     }

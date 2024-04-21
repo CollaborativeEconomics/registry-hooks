@@ -12,11 +12,9 @@ export default async function (context: ActionContext, parameters: MathParameter
   let inputB = parameters.inputB;
   // if its a path, extract the value
   if (typeof inputA === 'string') {
-    console.log(inputA);
     inputA = Number(get(context, inputA, inputA));
   }
   if (typeof inputB === 'string') {
-    console.log(inputB, context);
     inputB = Number(get(context, inputB, inputB));
   }
   const operation = parameters.operation;
