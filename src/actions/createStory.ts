@@ -74,4 +74,22 @@ const createStory = async (context: ActionContext, params: CreateStoryParameters
   return response.json();
 };
 
+interface CreateStoriesParameters {
+  organizationId: string;
+  initiativeId: string;
+  stories: CreateStoryParameters[];
+}
+
+const createStories = async (context: ActionContext, params: CreateStoriesParameters) => {
+  const { organizationId, initiativeId, stories } = params;
+
+  const results = await Promise.all(
+    stories.map((story) => createStory(context, { ...story, organizationId, initiativeId }))
+  );
+
+  return results;
+};
+
+export { createStories };
+
 export default createStory;
