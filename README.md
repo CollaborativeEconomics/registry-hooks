@@ -26,4 +26,113 @@ mintNFT() {
   const extraMetadata = runHook(Triggers.addMetadataToNFTReceiptReceipt, organizationId, {userId, walletId, organizationId}); // include metadata that might be used by the hooks.
 }
 ```
+
 ## Actions
+
+This package provides the following main actions:
+
+### `fetchDataFromApi(context, parameters)`
+
+Fetches data from an API. The `context` is an object that stores data as it passes through the hook. The `parameters` object should have the following properties:
+
+- `endpoint`: The API endpoint to fetch data from.
+- `method`: The HTTP method to use.
+- `body`: The body of the request.
+- `headers`: The headers of the request.
+
+Example usage:
+
+```javascript
+import { fetchDataFromApi } from '@cfce/registry/src/actions';
+
+fetchDataFromApi(context, {
+  endpoint: 'https://api.example.com/data',
+  method: 'GET',
+  body: {},
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+```
+
+## math(context, parameters)
+
+Performs a mathematical operation. The context is an object that stores data as it passes through the hook. The parameters object should have the following properties:
+ - operation: The operation to perform. This can be "multiply", "divide", "add", or "subtract".
+ - operands: An array of numbers to perform the operation on.
+
+Example usage:
+```javascript
+import { math } from '@cfce/registry/src/actions';
+
+math(context, {
+  operation: 'add',
+  operands: [1, 2, 3, 4, 5],
+});
+```
+
+## transform(context, parameters)
+Transforms data. The context is an object that stores data as it passes through the hook. The parameters object should have the following properties:
+ - path: The path of the data to transform.
+ - value: The value to transform the data to.
+ ```javascript
+import { transform } from '@cfce/registry/src/actions';
+
+transform(context, {
+  path: 'data.value',
+  value: 'newValue',
+});
+```
+## createStory(context, parameters)
+Creates a story. The context is an object that stores data as it passes through the hook. The parameters object should have the following properties:
+
+ - title: The title of the story.
+ - content: The content of the story.
+
+ Example usage:
+ ```javascript
+import { createStory } from '@cfce/registry/src/actions';
+
+createStory(context, {
+  title: 'My Story',
+  content: 'Once upon a time...',
+});
+```
+
+## createStories(context, parameters)
+Creates multiple stories. The context is an object that stores data as it passes through the hook. The parameters object should be an array where each element is an object with the following properties:
+
+ - title: The title of the story.
+ - content: The content of the story.
+
+ Example usage:
+ ```javascript
+import { createStories } from '@cfce/registry/src/actions';
+
+createStories(context, [
+  {
+    title: 'My First Story',
+    content: 'Once upon a time...',
+  },
+  {
+    title: 'My Second Story',
+    content: 'In a land far, far away...',
+  },
+]);
+```
+
+## transformEach(context, parameters)
+Transforms each item in the data. The context is an object that stores data as it passes through the hook. The parameters object should have the following properties:
+
+ - path: The path to the data to transform.
+ - value: The value to transform the data to.
+
+ Example usage:
+ ```javascript
+import { transformEach } from '@cfce/registry/src/actions';
+
+transformEach(context, {
+  path: 'data.values',
+  value: 'newValue',
+});
+```
