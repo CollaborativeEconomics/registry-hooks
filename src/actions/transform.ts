@@ -17,7 +17,7 @@ export default async function transform(context: ActionContext, parameters: Tran
   }, {});
 }
 
-interface TransformEachParameters {
+export interface TransformEachParameters {
   collectionPath: string;
   transformParameter: TransformParameters;
 }

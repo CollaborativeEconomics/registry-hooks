@@ -26,3 +26,4 @@ mintNFT() {
   const extraMetadata = runHook(Triggers.addMetadataToNFTReceiptReceipt, organizationId, {userId, walletId, organizationId}); // include metadata that might be used by the hooks.
 }
 ```
+## Actions

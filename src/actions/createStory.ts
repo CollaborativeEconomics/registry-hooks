@@ -74,7 +74,7 @@ const createStory = async (context: ActionContext, params: CreateStoryParameters
   return response.json();
 };
 
-interface CreateStoriesParameters {
+export interface CreateStoriesParameters {
   organizationId: string;
   initiativeId: string;
   stories: CreateStoryParameters[];

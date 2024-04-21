@@ -1,7 +1,7 @@
-import { CreateStoryParameters } from "./actions/createStory";
+import { CreateStoriesParameters, CreateStoryParameters } from "./actions/createStory";
 import { FetchDataFromApiParameters } from "./actions/fetchDataFromApi";
 import { MathParameters } from "./actions/math";
-import { TransformParameters } from "./actions/transform";
+import { TransformEachParameters, TransformParameters } from "./actions/transform";
 
 // Action types and trigger types
 export const ActionTypes = {
@@ -20,7 +20,13 @@ export type ActionName = (typeof ActionTypes)[keyof typeof ActionTypes];
 export type TriggerName = (typeof Triggers)[keyof typeof Triggers];
 
 // Parameter and action definitions
-export type ContextParams = FetchDataFromApiParameters | MathParameters | TransformParameters | CreateStoryParameters;
+export type ContextParams =
+  FetchDataFromApiParameters
+  | MathParameters
+  | TransformParameters
+  | TransformEachParameters
+  | CreateStoryParameters
+  | CreateStoriesParameters;
 
 export interface ActionDefinition {
   parameters: ContextParams;
