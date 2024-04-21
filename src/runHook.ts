@@ -10,7 +10,6 @@ async function executeHookActions(actionsList: ActionDefinition[], currentContex
 
   const currentAction = actionsList[index].actionDefinition;
   const actionFn = actions[currentAction.action];
-  console.log(currentAction);
   if (!actionFn) {
     throw new Error(`Action ${currentAction.action} not found.`);
   }
