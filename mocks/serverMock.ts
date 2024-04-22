@@ -8,8 +8,12 @@ const handlers = [
   http.get(`${getRegistryBaseUrl()}/test`, () => {
     return HttpResponse.json({ message: "Hello test!" })
   }),
-  http.get(`${getRegistryBaseUrl()}/hooks`, () => {
-    return HttpResponse.json(mockHook);
+  http.get(`${getRegistryBaseUrl()}/hooks`, ({ request }) => {
+    const url = new URL(request.url);
+    const trigger = url.searchParams.get("triggerName");
+    return trigger === Triggers.addMetadataToNFTReceipt
+      ? HttpResponse.json(addMetadataToNFTReceiptHook)
+      : HttpResponse.json(onceDailyHook)
   }),
   http.post(`${getRegistryBaseUrl()}/stories`, async ({ request }) => {
     const data = await request.formData();
@@ -45,20 +49,20 @@ const handlers = [
 
 const server = setupServer(...handlers);
 
-const mockHook = {
+const addMetadataToNFTReceiptHook = {
   trigger: Triggers.addMetadataToNFTReceipt,
   actions: [
     {
       actionDefinition: {
-          key: "carbonCreditQuote",
-          action: ActionTypes.fetchDataFromApi,
-          parameters: {
-              body: null,
-              method: "GET",
-              headers: null,
-              endpoint: "https://api-beta.stellarcarbon.io/carbon-quote?carbon_amount=1"
-          },
-          description: "Get the lbs CO2 estimate"
+        key: "carbonCreditQuote",
+        action: ActionTypes.fetchDataFromApi,
+        parameters: {
+          body: null,
+          method: "GET",
+          headers: null,
+          endpoint: "https://api-beta.stellarcarbon.io/carbon-quote?carbon_amount=1"
+        },
+        description: "Get the lbs CO2 estimate"
       }
     },
     {
@@ -71,20 +75,68 @@ const mockHook = {
           operation: 'divide'
         },
         description: "Convert lbs CO2 into tons CO2"
-    }
+      }
     },
     {
       actionDefinition: {
         key: "output",
         action: ActionTypes.transform,
         parameters: {
-            'tonsCO2': "tonsCO2",
-            'input.walletAddress': "walletAddress",
+          'tonsCO2': "tonsCO2",
+          'input.walletAddress': "walletAddress",
         },
         description: "Set the NFT metadata"
-    }
+      }
     }
   ],
+}
+
+const onceDailyHook = {
+  trigger: Triggers.onceDaily,
+  actions: [
+    {
+      actionDefinition: {
+        key: "inputValues",
+        action: ActionTypes.inputValues,
+        parameters: {
+          array: [
+            { key: "userId", value: "1234" },
+            { key: "walletAddress", value: "0xABCD" },
+            { key: "walletAddressChain", value: "ETH" },
+            { key: "amountUSD", value: "20" }
+          ],
+          string: "Hello world",
+          number: 1234,
+          boolean: true,
+        }
+      }
+    },
+    {
+      actionDefinition: {
+        key: "transformEach",
+        action: ActionTypes.transformEach,
+        parameters: {
+          collectionPath: "inputValues.array",
+          transformParameter: {
+            value: "amount",
+          }
+        },
+        description: "Set the NFT metadata"
+      }
+    },
+    {
+      actionDefinition: {
+        key: "createStories",
+        action: ActionTypes.createStories,
+        parameters: {
+          organizationId: "org_123",
+          initiativeId: "init_123",
+          storyPath: "transformEach",
+        },
+        description: "Set the NFT metadata"
+      }
+    }
+  ]
 }
 
 export default server;

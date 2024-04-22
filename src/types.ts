@@ -1,5 +1,6 @@
-import { CreateStoriesParameters, CreateStoryParameters } from "./actions/createStory";
+import { CreateStoriesParameters, CreateStoryParameters, createStories } from "./actions/createStory";
 import { FetchDataFromApiParameters } from "./actions/fetchDataFromApi";
+import { InputValuesParameters } from "./actions/inputValues";
 import { MathParameters } from "./actions/math";
 import { TransformEachParameters, TransformParameters } from "./actions/transform";
 
@@ -7,8 +8,13 @@ import { TransformEachParameters, TransformParameters } from "./actions/transfor
 export const ActionTypes = {
   fetchDataFromApi: "fetchDataFromApi",
   transform: "transform",
+  transformEach: 'transformEach',
   math: "math",
   createStory: 'createStory',
+  createStories: 'createStories',
+  find: 'find',
+  filter: 'filter',
+  inputValues: 'inputValues',
 } as const;
 
 export const Triggers = {
@@ -26,7 +32,8 @@ export type ContextParams =
   | TransformParameters
   | TransformEachParameters
   | CreateStoryParameters
-  | CreateStoriesParameters;
+  | CreateStoriesParameters
+  | InputValuesParameters;
 
 export interface ActionDefinition {
   parameters: ContextParams;

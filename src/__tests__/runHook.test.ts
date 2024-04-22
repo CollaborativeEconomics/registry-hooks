@@ -6,7 +6,16 @@ import { Triggers } from "../types";
 
 describe("runHook", () => {
   test("should execute a hook", async () => {
-    const metadata = await runHook(Triggers.addMetadataToNFTReceipt, "org_123", { userId: '1234', walletAddress: '0xABCD', walletAddressChain: "ETH", amountUSD: '20' });
+    const metadata = await runHook(Triggers.addMetadataToNFTReceipt, "org_123", {
+      userId: '1234',
+      walletAddress: '0xABCD',
+      walletAddressChain: "ETH",
+      amountUSD: '20'
+    });
     expect(metadata.output).toMatchObject({ tonsCO2: 1, walletAddress: '0xABCD' });
   });
+  test("should execute a hook with multiple actions", async () => {
+    const output = await runHook(Triggers.onceDaily, "org_123", { userId: '1234', walletAddress: '0xABCD', walletAddressChain: "ETH", amountUSD: '20' });
+    expect(output.createStories).toHaveLength(4)
+  })
 });

@@ -77,11 +77,13 @@ const createStory = async (context: ActionContext, params: CreateStoryParameters
 export interface CreateStoriesParameters {
   organizationId: string;
   initiativeId: string;
-  stories: CreateStoryParameters[];
+  storyPath: string;
 }
 
 const createStories = async (context: ActionContext, params: CreateStoriesParameters) => {
-  const { organizationId, initiativeId, stories } = params;
+  const { organizationId, initiativeId, storyPath } = params;
+
+  const stories: CreateStoryParameters[] = get(context, storyPath);
 
   const results = await Promise.all(
     stories.map((story) => createStory(context, { ...story, organizationId, initiativeId }))

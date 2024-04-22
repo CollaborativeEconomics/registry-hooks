@@ -7,6 +7,7 @@ export interface TransformParameters {
 
 // Transform
 export default async function transform(context: ActionContext, parameters: TransformParameters): Promise<any> {
+  console.log('transform', { context, parameters })
   return reduce(parameters, (result, newPath, originalPath) => {
     if (typeof newPath !== 'string' || typeof originalPath !== 'string') {
       throw new Error(`Invalid transform input of type ${typeof newPath}/${typeof originalPath}`);

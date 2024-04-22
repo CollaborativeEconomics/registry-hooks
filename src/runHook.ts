@@ -27,6 +27,7 @@ async function executeHookActions(actionsList: ActionDefinition[], currentContex
 
 const runHook = async (triggerName: TriggerName, orgId: string, inputContext: ContextParams): Promise<ActionContext> => {
   const hook: Hook = await fetchDataFromRegistry('/hooks', { triggerName, orgId });
+  console.log({ hook })
   if (!hook) {
     console.log(`No hook found for org ${orgId} and trigger ${triggerName}`);
     return inputContext;
