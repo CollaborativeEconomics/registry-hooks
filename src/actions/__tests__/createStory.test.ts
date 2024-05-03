@@ -44,19 +44,20 @@ describe("createStory", async () => {
 describe("createStories", async () => {
   test("creates multiple stories", async () => {
     const stories = [story, story];
-    const result = await createStories({}, { stories, organizationId: "orgId", initiativeId: "initId" });
+    const result = await createStories({ stories }, { storyPath: 'stories', organizationId: "orgId", initiativeId: "initId" });
     expect(result).toHaveLength(2);
   })
   test("creates multiple stories with context values", async () => {
-    const metadata = "{asdf: 1234}";
-    const context = {
-      input: { metadata, }
-    }
+    const metadata = JSON.stringify({asdf: 1234});
     const stories = [
       { ...story, metadata: "input.metadata" },
       { ...story, metadata: "input.metadata" },
     ];
-    const result = await createStories(context, { stories, organizationId: "orgId", initiativeId: "initId" });
+    const context = {
+      input: { metadata },
+      stories
+    }
+    const result = await createStories(context, { storyPath: 'stories', organizationId: "orgId", initiativeId: "initId" });
     expect(result).toHaveLength(2);
     expect(result[0]).toEqual(expect.objectContaining({ metadata }));
   })

@@ -27,6 +27,14 @@ mintNFT() {
 }
 ```
 
+## Context
+
+Actions operate based on the context that's passed into them, and then have access to the context of all the actions that came before. When the hook is first called, the context that's passed in is assigned to `input`
+
+### Input
+
+The input context is special in two ways. First, it injects information that may be useful for the hook, such as the wallet address of the donor. Second, it includes special values, currently just `date`, which is a timestamp at the time of execution of the hook. This date value can be used with the `math` action to add a date filter to an API request, for example.
+
 ## Actions
 
 This package provides the following main actions:

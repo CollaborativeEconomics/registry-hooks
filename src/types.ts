@@ -1,5 +1,7 @@
 import { CreateStoriesParameters, CreateStoryParameters, createStories } from "./actions/createStory";
 import { FetchDataFromApiParameters } from "./actions/fetchDataFromApi";
+import { FilterParameters } from "./actions/filter";
+import { FindParameters } from "./actions/find";
 import { InputValuesParameters } from "./actions/inputValues";
 import { MathParameters } from "./actions/math";
 import { TransformEachParameters, TransformParameters } from "./actions/transform";
@@ -33,7 +35,9 @@ export type ContextParams =
   | TransformEachParameters
   | CreateStoryParameters
   | CreateStoriesParameters
-  | InputValuesParameters;
+  | InputValuesParameters
+  | FindParameters
+  | FilterParameters;
 
 export interface ActionDefinition {
   parameters: ContextParams;

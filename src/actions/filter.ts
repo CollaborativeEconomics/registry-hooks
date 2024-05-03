@@ -2,7 +2,7 @@ import { get } from 'lodash'
 import { Operator, Operators, PredicateFunction, operators } from './find';
 import { ActionContext } from '../types';
 
-interface FilterParameters {
+export interface FilterParameters {
   operator: Operator;
   collectionPath: string; // where is the collection stored in the context
   key?: string; // the key to compare against
