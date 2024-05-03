@@ -2,9 +2,9 @@ import actions from "./actions";
 import fetchDataFromRegistry from "./fetchDataFromRegistry";
 import { ActionContext, ActionDefinition, ContextParams, Hook, TriggerName } from "./types";
 
-const createBaseContext: ActionContext = {
+const createBaseContext: () => ActionContext = () => ({
   date: Date.now(),
-};
+});
 
 async function executeHookActions(actionsList: ActionDefinition[], currentContext: ActionContext, index: number = 0): Promise<ActionContext> {
   // Base case: If we've executed all actions, return the final data
@@ -31,7 +31,8 @@ async function executeHookActions(actionsList: ActionDefinition[], currentContex
 
 const runHook = async (triggerName: TriggerName, orgId: string, inputContext: ContextParams): Promise<ActionContext> => {
   const hook: Hook = await fetchDataFromRegistry('/hooks', { triggerName, orgId });
-  const context = { ...createBaseContext, ...inputContext };
+  const baseContext = createBaseContext();
+  const context = { ...baseContext, ...inputContext };
   // console.log({ hook })
   if (!hook) {
     console.log(`No hook found for org ${orgId} and trigger ${triggerName}`);

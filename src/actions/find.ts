@@ -21,7 +21,7 @@ export const operators: Operators = {
   '||': (a, b) => Boolean(a) || Boolean(b)
 };
 
-interface FindParameters {
+export interface FindParameters {
   operator: Operator;
   collectionPath: string; // where is the collection stored in the context
   key?: string; // the key to compare against
