@@ -61,7 +61,6 @@ describe("transformEach action", async () => {
       }
     }
     const result = await transformEach(context, transformParams)
-    console.log(result)
     expect(result).toMatchObject([{
       metadata: {
         walletAddress: retirementData.retirements[0].retirement_beneficiary,

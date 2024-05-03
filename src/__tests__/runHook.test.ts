@@ -21,9 +21,7 @@ describe("runHook", () => {
   })
   test("stellar retirement hook works", async () => {
     setDateToReturnMockDate('2023-05-01');
-    // TODO: get this to pass, also, need to pass org info as input
     const output = await runHook(Triggers.onceDaily, "stellar", { walletAddress: 'GC53JCXZHW3SVNRE4CT6XFP46WX4ACFQU32P4PR3CU43OB7AKKMFXZ6Y' });
-    console.log({ output: output.createStories })
     expect(output.createStories).toHaveLength(1)
   })
 });

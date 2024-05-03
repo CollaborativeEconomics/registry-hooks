@@ -32,7 +32,6 @@ export interface CreateStoryParameters {
 const createStory = async (context: ActionContext, params: CreateStoryParameters) => {
   const ApiKey = getRegistryApiKey();
   const url = new URL(`${getRegistryBaseUrl()}/stories`);
-  console.log(getRegistryBaseUrl());
   const { organizationId, initiativeId, name, description, image, amount, metadata, files } = params;
   const { files: filesList } = files || { files: [] };
   const formData = new FormData();

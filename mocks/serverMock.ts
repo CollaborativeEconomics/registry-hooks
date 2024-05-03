@@ -188,13 +188,11 @@ const stellarRetirementHook = {
         parameters: {
           collectionPath: "retirements.retirements",
           transformParameter: {
-            metadata: {
-              walletAddress: "retirement_beneficiary",
-              certificateId: "certificate_id",
-              retirementDate: "retirement_date",
-              serialNumbers: "serial_numbers",
-              vcsId: "vcs_id",
-            }
+            "retirement_beneficiary": "metadata.walletAddress",
+            "certificate_id": "metadata.certificateId",
+            "retirement_date": "metadata.retirementDate",
+            "serial_numbers": "metadata.serialNumbers",
+            "vcs_id": "metadata.vcsId",
           }
         },
         description: "Set the NFT metadata"
