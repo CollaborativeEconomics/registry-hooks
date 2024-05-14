@@ -7,6 +7,7 @@ import transform, { TransformEachParameters, TransformParameters, transformEach 
 import inputValues from "./inputValues";
 import find, { FindParameters } from "./find";
 import filter, { FilterParameters } from "./filter";
+import formatDate, { FormatDateParameters } from "./formatDate";
 
 type Actions = {
   fetchDataFromApi: ActionFunction<FetchDataFromApiParameters>,
@@ -18,6 +19,7 @@ type Actions = {
   inputValues: ActionFunction<InputValuesParameters>,
   find: ActionFunction<FindParameters>,
   filter: ActionFunction<FilterParameters>,
+  formatDate: ActionFunction<FormatDateParameters>,
 };
 
 const actions: Record<ActionName, ActionFunction<any>> = {
@@ -30,6 +32,7 @@ const actions: Record<ActionName, ActionFunction<any>> = {
   inputValues,
   find,
   filter,
+  formatDate,
 }
 
 export default actions;
