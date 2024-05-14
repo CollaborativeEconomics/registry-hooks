@@ -61,7 +61,7 @@ const createStory = async (context: ActionContext, params: CreateStoryParameters
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${ApiKey}`,
+      'x-api-key': ApiKey,
     },
     body: formData,
   });
