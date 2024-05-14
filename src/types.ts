@@ -2,6 +2,7 @@ import { CreateStoriesParameters, CreateStoryParameters, createStories } from ".
 import { FetchDataFromApiParameters } from "./actions/fetchDataFromApi";
 import { FilterParameters } from "./actions/filter";
 import { FindParameters } from "./actions/find";
+import { FormatDateParameters } from "./actions/formatDate";
 import { InputValuesParameters } from "./actions/inputValues";
 import { MathParameters } from "./actions/math";
 import { TransformEachParameters, TransformParameters } from "./actions/transform";
@@ -17,6 +18,7 @@ export const ActionTypes = {
   find: 'find',
   filter: 'filter',
   inputValues: 'inputValues',
+  formatDate: 'formatDate',
 } as const;
 
 export const Triggers = {
@@ -37,7 +39,8 @@ export type ContextParams =
   | CreateStoriesParameters
   | InputValuesParameters
   | FindParameters
-  | FilterParameters;
+  | FilterParameters
+  | FormatDateParameters;
 
 export interface ActionDefinition {
   parameters: ContextParams;
