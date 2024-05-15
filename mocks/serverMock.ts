@@ -22,17 +22,17 @@ const handlers = [
   http.post(`${getRegistryBaseUrl()}/stories`, async ({ request }) => {
     const data = await request.formData();
     // console.log({ data });
-    const parameters = {} as CreateStoryParameters;
+    const parameters = {} as Story;
     parameters.organizationId = data.get("organizationId") as string;
     parameters.initiativeId = data.get("initiativeId") as string;
     parameters.name = data.get("name") as string;
     parameters.description = data.get("description") as string;
     parameters.image = data.get("image") as string;
     parameters.amount = Number(data.get("amount"));
-    parameters.metadata = data.get("metadata") as string;
+    parameters.metadata = JSON.parse(data.get("metadata") as string);
     // parameters.files = data.getAll("files").map((file: any) => file as File);
 
-    const story: Story = {
+    const story = {
       ...parameters,
       tokenId: "1234",
       image: "QmNvTh8ZRjcYZM5TtY41HXmdfXcB5vZpctBFLeTJugTJHV",

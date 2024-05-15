@@ -41,14 +41,16 @@ const createStory = async (context: ActionContext, params: CreateStoryParameters
   const appendToFormData = (key: string, pathOrValue: string) => {
     let contextValueOrValue = get(context, pathOrValue, pathOrValue);
     switch (typeof contextValueOrValue) {
-      case 'object':
-        contextValueOrValue = JSON.stringify(contextValueOrValue);
-        break;
       case 'undefined':
         contextValueOrValue = undefined;
         break;
+      case 'object':
+        contextValueOrValue = JSON.stringify(contextValueOrValue);
+        formData.set(key, contextValueOrValue);
+        break;
+      default:
+        formData.set(key, contextValueOrValue);
     }
-    formData.set(key, contextValueOrValue);
   };
 
   appendToFormData('organizationId', organizationId);
