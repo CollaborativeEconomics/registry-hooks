@@ -8,7 +8,9 @@ const story: CreateStoryParameters = {
   description: "description",
   image: "image",
   amount: 1,
-  metadata: "metadata",
+  metadata: {
+    asdf: 1234
+  },
   // files: {
   //   files: [new File([""], "filename")]
   // }
@@ -24,20 +26,21 @@ const storyResponseProperties = {
 describe("createStory", async () => {
   test("creates a story", async () => {
     const result = await createStory({}, story);
-    expect(result).toMatchObject({ ...story, ...storyResponseProperties })
+    expect(result).toMatchObject({ ...story, metadata: JSON.stringify(story.metadata), ...storyResponseProperties })
   })
   test("creates story with input context values", async () => {
-    const metadata = "{asdf: 1234}";
-    const context = {
-      input: { metadata, }
-    }
+    const metadata = { asdf: 1234 };
+    const context = { input: { metadata } }
     const storyWithPath = {
       ...story,
       metadata: "input.metadata",
-      name: "input.shouldJustShowString",
+      name: "shouldJustShowString",
     }
     const result = await createStory(context, storyWithPath);
-    expect(result).toEqual(expect.objectContaining({ metadata, name: "input.shouldJustShowString" }))
+    expect(result).toEqual(expect.objectContaining({
+      metadata: JSON.stringify(metadata),
+      name: "shouldJustShowString"
+    }))
   })
 })
 
@@ -48,7 +51,7 @@ describe("createStories", async () => {
     expect(result).toHaveLength(2);
   })
   test("creates multiple stories with context values", async () => {
-    const metadata = JSON.stringify({asdf: 1234});
+    const metadata = JSON.stringify({ asdf: 1234 });
     const stories = [
       { ...story, metadata: "input.metadata" },
       { ...story, metadata: "input.metadata" },
@@ -60,5 +63,25 @@ describe("createStories", async () => {
     const result = await createStories(context, { storyPath: 'stories', organizationId: "orgId", initiativeId: "initId" });
     expect(result).toHaveLength(2);
     expect(result[0]).toEqual(expect.objectContaining({ metadata }));
+  })
+  test("Doesn't pass undefined values to createStory", async () => {
+    const stories = [
+      { ...story, metadata: "input.metadata" },
+      { ...story, metadata: "input.metadata" },
+    ];
+    const metadata = JSON.stringify({
+      shouldNotShow: undefined,
+      shouldShow: "asdf"
+    })
+    const context = {
+      input: {
+        metadata
+      },
+      stories
+    }
+    const result = await createStories(context, { storyPath: 'stories', organizationId: "orgId", initiativeId: "initId" });
+    expect(result).toHaveLength(2);
+    console.log(result[0])
+    expect(result[0]).toEqual(expect.objectContaining({ metadata: JSON.stringify({ shouldShow: "asdf" }) }));
   })
 })

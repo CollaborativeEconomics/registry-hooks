@@ -13,7 +13,7 @@ export interface Story {
   initiativeId: string
   amount?: number
   tokenId?: string
-  metadata?: string
+  metadata?: Record<string, string | number | boolean | null>
 }
 
 export interface CreateStoryParameters {
@@ -22,7 +22,9 @@ export interface CreateStoryParameters {
   name: string;
   description: string;
   image: string;
-  amount?: number; // how many tokens to mint in set, default = 0
+  // how many tokens to mint in set, default = 0
+  amount?: number;
+  // path to object, or stringified object
   metadata?: string;
   files?: {
     files: File[];
@@ -37,7 +39,15 @@ const createStory = async (context: ActionContext, params: CreateStoryParameters
   const formData = new FormData();
 
   const appendToFormData = (key: string, pathOrValue: string) => {
-    const contextValueOrValue = get(context, pathOrValue, pathOrValue);
+    let contextValueOrValue = get(context, pathOrValue, pathOrValue);
+    switch (typeof contextValueOrValue) {
+      case 'object':
+        contextValueOrValue = JSON.stringify(contextValueOrValue);
+        break;
+      case 'undefined':
+        contextValueOrValue = undefined;
+        break;
+    }
     formData.set(key, contextValueOrValue);
   };
 
