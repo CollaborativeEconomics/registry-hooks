@@ -71,4 +71,28 @@ describe("transformEach action", async () => {
       }
     }])
   })
+  test("access context in transformed array", async () => {
+    const context = {
+      input: [
+        { a: 1, b: 2, c: 3 },
+        { a: 4, b: 5, c: 6 },
+      ],
+      contextValue: 1234
+    };
+    const transformParameter = {
+      'a': 'output.a',
+      'b': 'output.b',
+      'context.contextValue': 'output.contextValue'
+    };
+    const result = await transformEach(
+      context,
+      {
+        collectionPath: 'input',
+        transformParameter
+      })
+    expect(result).toEqual([
+      { output: { a: 1, b: 2, contextValue: 1234 } },
+      { output: { a: 4, b: 5, contextValue: 1234 } },
+    ]);
+  })
 })

@@ -28,7 +28,7 @@ export function transformEach(context: ActionContext, { collectionPath, transfor
   }
   return Promise.all(
     collection.map((item) => {
-      return transform(item, transformParameter)
+      return transform({ context, ...item }, transformParameter)
     })
   );
 }
