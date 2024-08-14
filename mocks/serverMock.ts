@@ -42,6 +42,7 @@ const handlers = [
 
     return HttpResponse.json(story);
   }),
+  // Deprecated carbon-quote endpoint
   http.get(`https://api-beta.stellarcarbon.io/carbon-quote?carbon_amount=1`, () => {
     return HttpResponse.json({
       "carbon_amount": "1",
@@ -49,10 +50,30 @@ const handlers = [
       "average_price": "20"
     });
   }),
+  http.get(`https://api-beta.stellarcarbon.io/carbon/carbon-quote?carbon_amount=1`, () => {
+    return HttpResponse.json({
+      "carbon_amount": "1.000",
+      "total_cost": "20.00",
+      "average_price": "20.00"
+    });
+  }),
+  // Deprecated registry/retirements endpoint
   http.get(`https://api-beta.stellarcarbon.io/registry/retirements`, ({ request }) => {
     const url = new URL(request.url);
     const address = url.searchParams.get("for_address");
     const date = url.searchParams.get("date_gte");
+    const wrongAddress = address !== "GC53JCXZHW3SVNRE4CT6XFP46WX4ACFQU32P4PR3CU43OB7AKKMFXZ6Y";
+    // should mock date as 5/1/23
+    const wrongDate = Number(date) !== +new Date("2023-04-30");
+    if (wrongAddress || wrongDate) {
+      return HttpResponse.json({ "retirements": [] });
+    }
+    return HttpResponse.json(retirementDataLegacy);
+  }),
+  http.get(`https://api-beta.stellarcarbon.io/retirements`, ({ request }) => {
+    const url = new URL(request.url);
+    const address = url.searchParams.get("for_beneficiary");
+    const date = url.searchParams.get("from_date");
     const wrongAddress = address !== "GC53JCXZHW3SVNRE4CT6XFP46WX4ACFQU32P4PR3CU43OB7AKKMFXZ6Y";
     // should mock date as 5/1/23
     const wrongDate = Number(date) !== +new Date("2023-04-30");
@@ -76,7 +97,7 @@ const addMetadataToNFTReceiptHook = {
           body: null,
           method: "GET",
           headers: null,
-          endpoint: "https://api-beta.stellarcarbon.io/carbon-quote?carbon_amount=1"
+          endpoint: "https://api-beta.stellarcarbon.io/carbon/carbon-quote?carbon_amount=1"
         },
         description: "Get the lbs CO2 estimate"
       }
@@ -177,7 +198,7 @@ const stellarRetirementHook = {
           body: null,
           method: "GET",
           headers: null,
-          endpoint: `https://api-beta.stellarcarbon.io/registry/retirements?for_address={input.walletAddress}&date_gte={yesterday}`
+          endpoint: `https://api-beta.stellarcarbon.io/retirements?for_beneficiary={input.walletAddress}&from_date={yesterday}`
         }
       }
     },
@@ -188,11 +209,12 @@ const stellarRetirementHook = {
         parameters: {
           collectionPath: "retirements.retirements",
           transformParameter: {
-            "retirement_beneficiary": "metadata.walletAddress",
+            "benificiary": "metadata.walletAddress",
             "certificate_id": "metadata.certificateId",
             "retirement_date": "metadata.retirementDate",
-            "serial_numbers": "metadata.serialNumbers",
+            "serial_number": "metadata.serialNumbers",
             "vcs_id": "metadata.vcsId",
+            "registry_url": "metadata.registryUrl",
           }
         },
         description: "Set the NFT metadata"
@@ -213,7 +235,7 @@ const stellarRetirementHook = {
   ]
 }
 
-export const retirementData = {
+export const retirementDataLegacy = {
   "total_count": 3,
   "count_exceeded": false,
   "total_amount_retired": 15,
@@ -238,6 +260,29 @@ export const retirementData = {
       "retirement_details": "stellarcarbon.io d58b08d1cbc27fe931752e4cfcbdfdcfc057b0bf1bd312b05a41c298b7c54f7e 263f997b4a2326df41ec2b346d79cbca4c06d2d72cff381620d39ca3ebe552f4 6854d5fc7690776dddba92fd0754e9f69ce7f5a3d3180373bc77d359d8e83d9f 063d8428b79a080eee39f5a8a39e4e199d43dbfe529a0b402ede160bb997b816 a36ffd373d153cf2e8fda674f5c9da9115d0322c29e1bad6a6c0b96030c09ed6 48d69bb7691c02df2ed5e79a89b7a89f5ae944409dc0450e59cefd5636d3cfc9 2ec3bb8fa3975ee46aa61ed14912c7c26d68e04fe293d388e3579807ec53282e",
       "certificate_id": "188439"
     }
+  ]
+}
+
+export const retirementData = {
+  "total_carbon_retired": 23,
+  "retirements": [
+    {
+      "certificate_id": 188439,
+      "registry_url": "https://registry.verra.org/mymodule/rpt/CertificateInfo.asp?rhid=188439",
+      "vcu_amount": 9,
+      "serial_number": "8040-449402283-449402291-VCU-042-MER-PE-14-1360-01072013-30062014-1",
+      "retirement_date": "2023-05-07",
+      "beneficiary": "GC53JCXZHW3SVNRE4CT6XFP46WX4ACFQU32P4PR3CU43OB7AKKMFXZ6Y via stellarcarbon.io",
+      "details": "stellarcarbon.io d58b08d1cbc27fe931752e4cfcbdfdcfc057b0bf1bd312b05a41c298b7c54f7e 263f997b4a2326df41ec2b346d79cbca4c06d2d72cff381620d39ca3ebe552f4 6854d5fc7690776dddba92fd0754e9f69ce7f5a3d3180373bc77d359d8e83d9f 063d8428b79a080eee39f5a8a39e4e199d43dbfe529a0b402ede160bb997b816 a36ffd373d153cf2e8fda674f5c9da9115d0322c29e1bad6a6c0b96030c09ed6 48d69bb7691c02df2ed5e79a89b7a89f5ae944409dc0450e59cefd5636d3cfc9 2ec3bb8fa3975ee46aa61ed14912c7c26d68e04fe293d388e3579807ec53282e",
+      "vcs_project_id": 1360,
+      "instrument": {
+        "issuance_date": "2020-03-20",
+        "instrument_type": "VCU",
+        "vintage_start": "2013-07-01",
+        "vintage_end": "2014-06-30",
+        "total_vintage_quantity": 97259
+      }
+    },
   ]
 }
 
